@@ -33,19 +33,7 @@ namespace HomeWork1
         {
             this.InitializeComponent();
             Current = this;
-
-            this.SizeChanged += (sender, e) => {                //  当<Frame name="MainPage">中加载了NewPage且宽度小于800, 此时若扩大宽度至大于800, 会出现两个NewPage. 用于解决这个问题
-                if (e.NewSize.Width > 800 && narrowToWide)
-                {
-                    MainPage.Navigate(typeof(MainPage));    //  刷新MainPage
-                    narrowToWide = false;
-                }   
-
-                if (e.NewSize.Width < 800)
-                {
-                    narrowToWide = true;
-                }
-            };
+            
 
             MainPage.Navigate(typeof(MainPage));
             NewPage.Navigate(typeof(NewPage));
@@ -55,7 +43,7 @@ namespace HomeWork1
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)   //  点击下标栏的加号
         {
-            MainPage.Navigate(typeof(NewPage));
+            Frame.Navigate(typeof(NewPage));
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)

@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-09T05:31:28.645</Modified>
+      <Modified>2018-04-09T13:05:25.871</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\HomeWork1.exe">
       <PackagePath>entrypoint\HomeWork1.exe</PackagePath>
-      <Modified>2018-04-09T05:31:28.272</Modified>
+      <Modified>2018-04-09T13:05:25.606</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -547,7 +547,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\HomeWork1.xr.xml">
       <PackagePath>HomeWork1.xr.xml</PackagePath>
-      <Modified>2018-04-09T04:14:54.762</Modified>
+      <Modified>2018-04-09T12:12:32.383</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -556,11 +556,11 @@
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-09T04:25:34.851</Modified>
+      <Modified>2018-04-09T13:03:09.569</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Core\HomeWork1.exe">
       <PackagePath>HomeWork1.exe</PackagePath>
-      <Modified>2018-04-09T05:31:28.640</Modified>
+      <Modified>2018-04-09T13:05:25.871</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
