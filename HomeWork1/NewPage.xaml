@@ -9,16 +9,16 @@
 
     <ScrollViewer Margin="100" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid HorizontalAlignment="Center">
-            <Image x:Name="image" HorizontalAlignment="Center" Height="108" Margin="0,93,0,0" VerticalAlignment="Top" Source="Assets/background.jpg" Width="168"/>
+            <Image x:FieldModifier="public" x:Name="image" HorizontalAlignment="Center" Height="108" Margin="0,93,0,0" VerticalAlignment="Top" Source="Assets/background.jpg" Width="168"/>
             <AppBarButton HorizontalAlignment="Left" Icon="Pictures" Margin="328,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.022,0.496" Click="Button_Upload_Image"/>
             <TextBlock HorizontalAlignment="Left" Margin="2,234,0,0" Text="Title" TextWrapping="Wrap" VerticalAlignment="Top" Width="111" Height="53" FontSize="30" RenderTransformOrigin="0.471,-0.027"/>
-            <TextBox x:Name="title" HorizontalAlignment="Left" Margin="0,279,0,0" VerticalAlignment="Top" Height="66" Width="456" FontSize="30" RenderTransformOrigin="0.554,-5.957" FontFamily="Segoe UI"/>
+            <TextBox x:FieldModifier="public" x:Name="title" HorizontalAlignment="Left" Margin="0,279,0,0" VerticalAlignment="Top" Height="66" Width="456" FontSize="30" RenderTransformOrigin="0.554,-5.957" FontFamily="Segoe UI"/>
             <TextBlock HorizontalAlignment="Left" Margin="2,350,0,0" Text="Detail" TextWrapping="Wrap" VerticalAlignment="Top" Width="111" Height="53" FontSize="30" RenderTransformOrigin="0.471,-0.027" FontFamily="Segoe UI"/>
-            <TextBox x:Name="detail" HorizontalAlignment="Left" Margin="0,395,0,0" VerticalAlignment="Top" Height="193" Width="456" FontSize="30" RenderTransformOrigin="0.131,-3.533" />
+            <TextBox x:FieldModifier="public" x:Name="detail" HorizontalAlignment="Left" Margin="0,395,0,0" VerticalAlignment="Top" Height="193" Width="456" FontSize="30" RenderTransformOrigin="0.131,-3.533" />
             <TextBlock HorizontalAlignment="Left" Margin="2,593,0,0" Text="Due Date" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Height="53" FontSize="30" RenderTransformOrigin="0.471,-0.027" FontFamily="Segoe UI"/>
-            <Button x:Name="create" Content="Create" HorizontalAlignment="Left" Margin="0,708,0,0" VerticalAlignment="Top" Height="47" Width="130" RenderTransformOrigin="0.657,-1.13" FontSize="22" Click="create_Click" FontFamily="Segoe UI"/>
-            <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Margin="328,709,0,0" VerticalAlignment="Top" Height="47" Width="130" RenderTransformOrigin="0.805,-1.434" FontSize="22" Click="cancel_Click"/>
-            <DatePicker x:Name="dueDate" HorizontalAlignment="Left" Margin="0,638,-33,0" VerticalAlignment="Top" Height="117" Width="491" RenderTransformOrigin="0.516,0.838" FontSize="20"/>
+            <Button x:FieldModifier="public" x:Name="create" Content="Create" HorizontalAlignment="Left" Margin="0,708,0,0" VerticalAlignment="Top" Height="47" Width="130" RenderTransformOrigin="0.657,-1.13" FontSize="22" Click="create_Click" FontFamily="Segoe UI"/>
+            <Button x:FieldModifier="public" x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" Margin="328,709,0,0" VerticalAlignment="Top" Height="47" Width="130" RenderTransformOrigin="0.805,-1.434" FontSize="22" Click="cancel_Click"/>
+            <DatePicker x:FieldModifier="public" x:Name="dueDate" HorizontalAlignment="Left" Margin="0,638,-33,0" VerticalAlignment="Top" Height="117" Width="491" RenderTransformOrigin="0.516,0.838" FontSize="20"/>
         </Grid>
     </ScrollViewer>
 </Page>

@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Core;
 using System.Diagnostics;
+using Windows.Storage;
 
 namespace HomeWork1
 {
@@ -48,20 +49,6 @@ namespace HomeWork1
                 this.Frame.Navigate(typeof(NewPage));
             }
             NewPage.Current.Update(SelectItem);
-        }
-
-    }
-
-    public class boolConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            return (bool)value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
         }
     }
 }

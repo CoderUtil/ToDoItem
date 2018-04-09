@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Todos.ViewModels;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
@@ -24,7 +25,7 @@ namespace HomeWork1
         private TodoItemViewModel ViewModel = WholePage.ViewModel;
         public static NewPage Current;
 
-        private bool isUpdate = false;
+        public bool isUpdate = false;
         private int updateId;
 
         public NewPage()
@@ -37,6 +38,43 @@ namespace HomeWork1
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                 Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+
+            if (e.NavigationMode == NavigationMode.New)
+            {
+                ApplicationData.Current.LocalSettings.Values.Remove("NewPage");
+            }
+            else
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("NewPage"))
+                {
+                    var composite = ApplicationData.Current.LocalSettings.Values["NewPage"] as ApplicationDataCompositeValue;
+                    title.Text = (string)composite["Title"];
+                    detail.Text = (string)composite["Details"];
+                    dueDate.Date = (DateTimeOffset)composite["Date"];
+                    isUpdate = (bool)composite["isUpdate"];
+                    if (isUpdate)
+                    {
+                        create.Content = "Update";
+                        cancel.Content = "Delete";
+                    }
+                    ApplicationData.Current.LocalSettings.Values.Remove("NewPage");
+                }
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e) // 从该页面离开时
+        {
+            bool suspending = ((App)App.Current).issuspend;
+            if (suspending)
+            {
+                var composite = new ApplicationDataCompositeValue();
+                composite["Title"] = title.Text;
+                composite["Details"] = detail.Text;
+                composite["Date"] = dueDate.Date;
+                composite["isUpdate"] = isUpdate;
+                ApplicationData.Current.LocalSettings.Values["NewPage"] = composite;
+                
+            }
         }
 
         private void cancel_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -130,7 +168,8 @@ namespace HomeWork1
             StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                // Application now has read/write access to the picked file
+                ApplicationData.Current.LocalSettings.Values["image"] = StorageApplicationPermissions.FutureAccessList.Add(file);
+
                 try
                 {
                     BitmapImage bitmapImage = new BitmapImage();

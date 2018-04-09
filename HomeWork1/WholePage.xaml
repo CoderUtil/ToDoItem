@@ -12,14 +12,14 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Frame Name="MainPage" Grid.Column="0"></Frame>
-        <Frame Name="NewPage" Grid.Column="1"></Frame>
+        <Frame Name="MainPageFrame" Grid.Column="0"/>
+        <Frame Name="NewPageFrame" Grid.Column="1"/>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="VisualStateMin0">
                     <VisualState.Setters>
-                        <Setter Target="NewPage.Visibility" Value="Collapsed"/>
-                        <Setter Target="MainPage.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="NewPageFrame.Visibility" Value="Collapsed"/>
+                        <Setter Target="MainPageFrame.(Grid.ColumnSpan)" Value="2"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1"/>

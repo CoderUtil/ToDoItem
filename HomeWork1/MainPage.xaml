@@ -7,13 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="using:Todos.Models"
     mc:Ignorable="d" FontSize="22">
-
-    <Page.Resources>
-        <ResourceDictionary>
-            <local:boolConverter x:Key="boolConverter"/>
-        </ResourceDictionary>
-    </Page.Resources>
-
+    
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -47,7 +41,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox x:Name="ItemCheckBox" Height="32" Width="120" IsChecked="{x:Bind completed, Converter={StaticResource boolConverter}}"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,34,0,34"/>
+                            <CheckBox x:Name="ItemCheckBox" Height="32" Width="120" IsChecked="{Binding completed, Mode=TwoWay}"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,34,0,34"/>
                             <Image x:Name="ItemImage" Height="39" Source="{x:Bind image}" Grid.Column="1" HorizontalAlignment="Center" Margin="20,10,20,0" VerticalAlignment="Center" Visibility="{Binding ElementName=blank, Path=Visibility}"/>
                             <Line Name="ItemDeleteLine" Grid.Column="2" X2="1" Stretch="Fill" Stroke="Blue" StrokeThickness="2" Visibility="{Binding ElementName=ItemCheckBox, Path=IsChecked}"/>
                             <TextBlock Text="{x:Bind title}" Grid.Column="2" Margin="0,38" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Left"/>
