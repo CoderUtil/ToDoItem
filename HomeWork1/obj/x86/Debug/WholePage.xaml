@@ -38,7 +38,8 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:ConnectionId='6' x:Name="barButton" Icon="Add"                           />
+            <AppBarButton x:ConnectionId='6' x:Name="barButtonAdd" Icon="Add"                  />
+            <AppBarButton x:ConnectionId='7' x:Name="barButtonShare" Icon="Share"                    />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

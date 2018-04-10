@@ -109,17 +109,5 @@ namespace HomeWork1
 
             deferral.Complete();
         }
-
-                private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame == null) return;
-            if (rootFrame.CanGoBack && e.Handled == false)
-            {
-                e.Handled = true;
-                rootFrame.GoBack();
-            }
-        }
     }
 }

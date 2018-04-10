@@ -132,19 +132,23 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[5];
+            _typeNameTable = new string[7];
             _typeNameTable[0] = "HomeWork1.MainPage";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
             _typeNameTable[3] = "HomeWork1.NewPage";
-            _typeNameTable[4] = "HomeWork1.WholePage";
+            _typeNameTable[4] = "Windows.Storage.Streams.RandomAccessStreamReference";
+            _typeNameTable[5] = "Object";
+            _typeNameTable[6] = "HomeWork1.WholePage";
 
-            _typeTable = new global::System.Type[5];
+            _typeTable = new global::System.Type[7];
             _typeTable[0] = typeof(global::HomeWork1.MainPage);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
             _typeTable[3] = typeof(global::HomeWork1.NewPage);
-            _typeTable[4] = typeof(global::HomeWork1.WholePage);
+            _typeTable[4] = typeof(global::Windows.Storage.Streams.RandomAccessStreamReference);
+            _typeTable[5] = typeof(global::System.Object);
+            _typeTable[6] = typeof(global::HomeWork1.WholePage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -181,7 +185,7 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
 
         private object Activate_0_MainPage() { return new global::HomeWork1.MainPage(); }
         private object Activate_3_NewPage() { return new global::HomeWork1.NewPage(); }
-        private object Activate_4_WholePage() { return new global::HomeWork1.WholePage(); }
+        private object Activate_6_WholePage() { return new global::HomeWork1.WholePage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -211,13 +215,25 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
             case 3:   //  HomeWork1.NewPage
                 userType = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_3_NewPage;
+                userType.AddMemberName("ImageStreamRef");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 4:   //  HomeWork1.WholePage
+            case 4:   //  Windows.Storage.Streams.RandomAccessStreamReference
+                userType = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.SetIsReturnTypeStub();
+                xamlType = userType;
+                break;
+
+            case 5:   //  Object
+                xamlType = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 6:   //  HomeWork1.WholePage
                 userType = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_4_WholePage;
+                userType.Activator = Activate_6_WholePage;
+                userType.AddMemberName("ImageStreamRef");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -226,11 +242,37 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
         }
 
 
+        private object get_0_NewPage_ImageStreamRef(object instance)
+        {
+            var that = (global::HomeWork1.NewPage)instance;
+            return that.ImageStreamRef;
+        }
+        private object get_1_WholePage_ImageStreamRef(object instance)
+        {
+            var that = (global::HomeWork1.WholePage)instance;
+            return that.ImageStreamRef;
+        }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
             global::HomeWork1.HomeWork1_XamlTypeInfo.XamlMember xamlMember = null;
-            // No Local Properties
+            global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType userType;
+
+            switch (longMemberName)
+            {
+            case "HomeWork1.NewPage.ImageStreamRef":
+                userType = (global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType)GetXamlTypeByName("HomeWork1.NewPage");
+                xamlMember = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlMember(this, "ImageStreamRef", "Windows.Storage.Streams.RandomAccessStreamReference");
+                xamlMember.Getter = get_0_NewPage_ImageStreamRef;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "HomeWork1.WholePage.ImageStreamRef":
+                userType = (global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType)GetXamlTypeByName("HomeWork1.WholePage");
+                xamlMember = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlMember(this, "ImageStreamRef", "Windows.Storage.Streams.RandomAccessStreamReference");
+                xamlMember.Getter = get_1_WholePage_ImageStreamRef;
+                xamlMember.SetIsReadOnly();
+                break;
+            }
             return xamlMember;
         }
     }

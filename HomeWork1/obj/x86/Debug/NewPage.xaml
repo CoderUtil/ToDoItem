@@ -21,5 +21,10 @@
             <DatePicker x:ConnectionId='7' x:FieldModifier="public" x:Name="dueDate" HorizontalAlignment="Left" Margin="0,638,-33,0" VerticalAlignment="Top" Height="117" Width="491" RenderTransformOrigin="0.516,0.838" FontSize="20"/>
         </Grid>
     </ScrollViewer>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:ConnectionId='8' x:Name="barButtonShare" Icon="Share"                    />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
 

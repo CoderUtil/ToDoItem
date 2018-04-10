@@ -15,7 +15,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-
+using Microsoft.Toolkit.Uwp.Notifications;
+using Windows.UI.Notifications;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace HomeWork1
 {
@@ -26,12 +28,49 @@ namespace HomeWork1
         public static NewPage Current;
 
         public bool isUpdate = false;
-        private int updateId;
+
+        public RandomAccessStreamReference ImageStreamRef { get; private set; }
 
         public NewPage()
         {
             this.InitializeComponent();
             Current = this;
+
+            Uri imageUri = new Uri("ms-appx:///Assets/tv.jpg");         //  图片的共享
+            this.ImageStreamRef = RandomAccessStreamReference.CreateFromUri(imageUri);
+        }
+
+        private async void shareButton(object sender, RoutedEventArgs e)
+        {
+
+            var messageDialog = new MessageDialog("");
+
+            messageDialog.Commands.Add(new UICommand("Close"));
+
+            messageDialog.DefaultCommandIndex = 0;
+
+            messageDialog.CancelCommandIndex = 1;
+
+            if (ViewModel.selectId == -1)
+            {
+                messageDialog.Content = "Please choose an item!";
+                await messageDialog.ShowAsync();
+            }
+            else
+            {
+                DataTransferManager.ShowShareUI();
+                DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+                dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+            }
+        }
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+
+            request.Data.Properties.Title = ViewModel.AllItems[ViewModel.selectId].title;
+            request.Data.SetText(ViewModel.AllItems[ViewModel.selectId].description);
+            request.Data.SetBitmap(ImageStreamRef);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -86,31 +125,31 @@ namespace HomeWork1
             }
             else
             {
-                ViewModel.removeTodoItem(updateId);
+                ViewModel.removeTodoItem();
                 isUpdate = false;
                 create.Content = "Create";
                 cancel.Content = "Cancel";
                 Frame rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(WholePage));
+
+                WholePage.Current.tileCreate();           //  创建新的Item, 要更新磁贴
             }
         }
 
 
-        public void Update(int itemIndex)
+        public void Update()
         {
             create.Content = "Update";
             cancel.Content = "Delete";
 
-            if (itemIndex >= 0)
-            {
-                image.Source = ViewModel.allItems[itemIndex].image;
-                title.Text = ViewModel.allItems[itemIndex].title;
-                detail.Text = ViewModel.allItems[itemIndex].description;
-                dueDate.Date = ViewModel.allItems[itemIndex].date.Date;
+            var itemIndex = ViewModel.selectId;
+            
+            image.Source = ViewModel.allItems[itemIndex].image;
+            title.Text = ViewModel.allItems[itemIndex].title;
+            detail.Text = ViewModel.allItems[itemIndex].description;
+            dueDate.Date = ViewModel.allItems[itemIndex].date.Date;
 
-                isUpdate = true;
-                updateId = itemIndex;
-            }
+            isUpdate = true;
         }
 
         private async void create_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -146,13 +185,15 @@ namespace HomeWork1
                     ViewModel.AddTodoItem(image.Source as BitmapImage, title.Text, detail.Text, dueDate.Date.Date);
                 else
                 {
-                    ViewModel.updateTodoItem(image.Source as BitmapImage, title.Text, detail.Text, dueDate.Date.Date, updateId);
+                    ViewModel.updateTodoItem(image.Source as BitmapImage, title.Text, detail.Text, dueDate.Date.Date);
                     isUpdate = false;
                     create.Content = "Create";
                     cancel.Content = "Cancel";
                 }
                 Frame rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(WholePage));
+
+                WholePage.Current.tileCreate();       //  创建新的Item, 要更新磁贴
             }
         }
 

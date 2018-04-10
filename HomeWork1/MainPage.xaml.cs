@@ -43,12 +43,13 @@ namespace HomeWork1
 
         private void ItemSelect(object sender, SelectionChangedEventArgs e)
         {
-            SelectItem = list.SelectedIndex;            //  获取选中的item的标号
+            ViewModel.selectId = list.SelectedIndex;       //  获取选中的item的标号
             if (Window.Current.Bounds.Width < 800)
             {
-                this.Frame.Navigate(typeof(NewPage));
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(NewPage));
             }
-            NewPage.Current.Update(SelectItem);
+            NewPage.Current.Update();
         }
     }
 }

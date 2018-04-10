@@ -6,12 +6,15 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Todos.ViewModels;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
+using Windows.UI.Notifications;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,7 +35,8 @@ namespace HomeWork1
 
         public static WholePage Current;
         public static TodoItemViewModel ViewModel = new TodoItemViewModel();
-        public static bool narrowToWide = true;
+
+        public RandomAccessStreamReference ImageStreamRef { get; private set; }
 
         public WholePage()
         {
@@ -44,11 +48,69 @@ namespace HomeWork1
             NewPageFrame.Navigate(typeof(NewPage));
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            tileCreate();   //  调用创建磁贴的函数
+
+            Uri imageUri = new Uri("ms-appx:///Assets/tv.jpg");         //  图片的共享
+            this.ImageStreamRef = RandomAccessStreamReference.CreateFromUri(imageUri);
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)   //  点击下标栏的加号
+        public void tileCreate()       //  创建磁贴
+        {
+            Windows.Data.Xml.Dom.XmlDocument document = new Windows.Data.Xml.Dom.XmlDocument();
+            document.LoadXml(System.IO.File.ReadAllText("XMLFile1.xml"));
+            var Texttitle = document.GetElementsByTagName("text");
+
+            TileUpdateManager.CreateTileUpdaterForApplication().Clear();
+            TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
+            for (int i = 0; i < ViewModel.AllItems.Count; i++)
+            {
+                if (i < 5)
+                {
+                    Texttitle[0].InnerText = Texttitle[2].InnerText = Texttitle[4].InnerText = ViewModel.AllItems[i].title;
+                    Texttitle[1].InnerText = Texttitle[3].InnerText = Texttitle[5].InnerText = ViewModel.AllItems[i].description;
+                    TileNotification newTile = new TileNotification(document);
+                    TileUpdateManager.CreateTileUpdaterForApplication().Update(newTile);
+                }
+            }
+        }
+
+        private void addButton(object sender, RoutedEventArgs e)   //  点击下标栏的加号
         {
             Frame.Navigate(typeof(NewPage));
+        }
+
+        private async void shareButton(object sender, RoutedEventArgs e)
+        {
+
+            var messageDialog = new MessageDialog("");
+
+            messageDialog.Commands.Add(new UICommand("Close"));
+
+            messageDialog.DefaultCommandIndex = 0;
+
+            messageDialog.CancelCommandIndex = 1;
+
+            if (ViewModel.selectId == -1)
+            {
+                messageDialog.Content = "Please choose an item!";
+                await messageDialog.ShowAsync();
+            }
+            else
+            {
+                DataTransferManager.ShowShareUI();
+                DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+                dataTransferManager.DataRequested += DataTransferManager_DataRequested;
+            }
+        }
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            
+            request.Data.Properties.Title = ViewModel.AllItems[ViewModel.selectId].title;
+            request.Data.SetText(ViewModel.AllItems[ViewModel.selectId].description);
+            request.Data.SetBitmap(ImageStreamRef);
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
@@ -62,12 +124,14 @@ namespace HomeWork1
                 rootFrame.GoBack();
             }
         }
+        
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
             Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
 
+            ViewModel.selectId = -1;    //  刚进这个页面, 之前选中的不见了
 
             if (e.NavigationMode == NavigationMode.New)
             {
@@ -124,7 +188,6 @@ namespace HomeWork1
                 for (int i = 0; i < ViewModel.AllItems.Count(); i++)
                 {
                     composite["ischecked" + i] = ViewModel.AllItems[i].completed;
-                    Debug.WriteLine(ViewModel.AllItems[i].completed);
                 }
                 ApplicationData.Current.LocalSettings.Values["WholePage"] = composite;
 

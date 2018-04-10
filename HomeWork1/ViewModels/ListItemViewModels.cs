@@ -15,6 +15,8 @@ namespace Todos.ViewModels
 
         public ObservableCollection<TodoItem> AllItems { get { return this.allItems; } }            //  数据绑定不支持绑定一个getAttribute方法, 因此只能这个属性的{get;}获取
 
+        public int selectId = -1;
+
         public TodoItemViewModel()
         {
             AddTodoItem(new BitmapImage(new Uri("ms-appx:///Assets/tv.jpg")), "Test1", "1111", DateTime.Now);
@@ -27,17 +29,17 @@ namespace Todos.ViewModels
             this.allItems.Add(new TodoItem(image, title, description, date));
         }
 
-        public void updateTodoItem(BitmapImage image, string title, string description, DateTime date, int ItemId)
+        public void updateTodoItem(BitmapImage image, string title, string description, DateTime date)
         {
-            this.allItems[ItemId].image = image;
-            this.allItems[ItemId].title = title;
-            this.allItems[ItemId].description = description;
-            this.allItems[ItemId].date = date;
+            this.allItems[selectId].image = image;
+            this.allItems[selectId].title = title;
+            this.allItems[selectId].description = description;
+            this.allItems[selectId].date = date;
         }
 
-        public void removeTodoItem(int ItemId)
+        public void removeTodoItem()
         {
-            this.allItems.RemoveAt(ItemId);
+            this.allItems.RemoveAt(selectId);
         }
     }
 }

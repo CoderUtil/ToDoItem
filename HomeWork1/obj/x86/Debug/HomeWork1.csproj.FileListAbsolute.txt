@@ -224,3 +224,5 @@ C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\MultipleQualifiersPerDim
 C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\resources.en-us.resfiles
 C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\resources.en-us.resfiles.intermediate
 C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\ProjectArchitectures.txt
+C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Microsoft.Toolkit.Uwp.Notifications.dll
+C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\Microsoft.Toolkit.Uwp.Notifications.pri.xml
