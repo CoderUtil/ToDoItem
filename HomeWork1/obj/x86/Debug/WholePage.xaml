@@ -8,15 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Frame x:ConnectionId='1' Name="MainPageFrame" Grid.Column="0"/>
-        <Frame x:ConnectionId='2' Name="NewPageFrame" Grid.Column="1"/>
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:ConnectionId='3' x:Name="VisualStateGroup">
-                <VisualState x:ConnectionId='4' x:Name="VisualStateMin0">
+            <VisualStateGroup x:ConnectionId='1' x:Name="VisualStateGroup">
+                <VisualState x:ConnectionId='2' x:Name="VisualStateMin1">
                     <VisualState.Setters>
                         <Setter Target="NewPageFrame.Visibility" Value="Collapsed"/>
                         <Setter Target="MainPageFrame.(Grid.ColumnSpan)" Value="2"/>
@@ -25,9 +19,9 @@
                         <AdaptiveTrigger MinWindowWidth="1"/>
                     </VisualState.StateTriggers>
                 </VisualState>
-                <VisualState x:ConnectionId='5' x:Name="VisualStateMin800">
+                <VisualState x:ConnectionId='3' x:Name="VisualStateMin800">
                     <VisualState.Setters>
-                        <Setter Target="barButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="barAddButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800"/>
@@ -35,11 +29,16 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame x:ConnectionId='4' Name="MainPageFrame" Grid.Column="0"/>
+        <Frame x:ConnectionId='5' Name="NewPageFrame" Grid.Column="1"/>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:ConnectionId='6' x:Name="barButtonAdd" Icon="Add"                  />
-            <AppBarButton x:ConnectionId='7' x:Name="barButtonShare" Icon="Share"                    />
+            <AppBarButton x:ConnectionId='6' x:Name="barAddButton" Icon="Add"                  />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

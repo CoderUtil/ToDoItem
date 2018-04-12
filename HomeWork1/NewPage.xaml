@@ -11,6 +11,7 @@
         <Grid HorizontalAlignment="Center">
             <Image x:FieldModifier="public" x:Name="image" HorizontalAlignment="Center" Height="108" Margin="0,93,0,0" VerticalAlignment="Top" Source="Assets/background.jpg" Width="168"/>
             <AppBarButton HorizontalAlignment="Left" Icon="Pictures" Margin="328,197,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.022,0.496" Click="Button_Upload_Image"/>
+            <AppBarButton x:Name="barShareButton" Icon="Share" Click="shareButton" Margin="371,197,0,0"/>
             <TextBlock HorizontalAlignment="Left" Margin="2,234,0,0" Text="Title" TextWrapping="Wrap" VerticalAlignment="Top" Width="111" Height="53" FontSize="30" RenderTransformOrigin="0.471,-0.027"/>
             <TextBox x:FieldModifier="public" x:Name="title" HorizontalAlignment="Left" Margin="0,279,0,0" VerticalAlignment="Top" Height="66" Width="456" FontSize="30" RenderTransformOrigin="0.554,-5.957" FontFamily="Segoe UI"/>
             <TextBlock HorizontalAlignment="Left" Margin="2,350,0,0" Text="Detail" TextWrapping="Wrap" VerticalAlignment="Top" Width="111" Height="53" FontSize="30" RenderTransformOrigin="0.471,-0.027" FontFamily="Segoe UI"/>
@@ -21,9 +22,4 @@
             <DatePicker x:FieldModifier="public" x:Name="dueDate" HorizontalAlignment="Left" Margin="0,638,-33,0" VerticalAlignment="Top" Height="117" Width="491" RenderTransformOrigin="0.516,0.838" FontSize="20"/>
         </Grid>
     </ScrollViewer>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton x:Name="barButtonShare" Icon="Share" Click="shareButton"/>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

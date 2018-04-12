@@ -24,9 +24,9 @@ namespace HomeWork1
     public sealed partial class MainPage : Page
     {
 
-        public TodoItemViewModel ViewModel = WholePage.ViewModel;
-        public static MainPage Current;     //  给每个Page创建一个单例对象.
-        public int SelectItem = 0;
+        public TodoItemViewModel ViewModel = WholePage.ViewModel;       
+        public static MainPage Current;         //  MainPage的单例对象
+        public int SelectItem = 0;              //  点击选定的Item
         
 
         public MainPage()
@@ -41,9 +41,9 @@ namespace HomeWork1
                 Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
-        private void ItemSelect(object sender, SelectionChangedEventArgs e)
+        private void ItemSelect(object sender, SelectionChangedEventArgs e)     //  点击Item时获取选定Item的事件
         {
-            ViewModel.selectId = list.SelectedIndex;       //  获取选中的item的标号
+            ViewModel.selectId = list.SelectedIndex;       //  获取选中的item的标号, 存放在ViewModel中
             if (Window.Current.Bounds.Width < 800)
             {
                 Frame rootFrame = Window.Current.Content as Frame;

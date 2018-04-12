@@ -33,26 +33,33 @@ namespace HomeWork1
     public sealed partial class WholePage : Page
     {
 
-        public static WholePage Current;
-        public static TodoItemViewModel ViewModel = new TodoItemViewModel();
-
-        public RandomAccessStreamReference ImageStreamRef { get; private set; }
+        public static WholePage Current;        //  WholePage的单例对象
+        public static TodoItemViewModel ViewModel = new TodoItemViewModel();        //  ViewModel存储Item数据.所有页面共享一份数据
 
         public WholePage()
         {
             this.InitializeComponent();
-            Current = this;
+            Current = this;         
             
 
             MainPageFrame.Navigate(typeof(MainPage));
             NewPageFrame.Navigate(typeof(NewPage));
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;       //  创建后退Button
 
             tileCreate();   //  调用创建磁贴的函数
+        }
 
-            Uri imageUri = new Uri("ms-appx:///Assets/tv.jpg");         //  图片的共享
-            this.ImageStreamRef = RandomAccessStreamReference.CreateFromUri(imageUri);
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame == null) return;
+            if (rootFrame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
         }
 
         public void tileCreate()       //  创建磁贴
@@ -75,74 +82,29 @@ namespace HomeWork1
             }
         }
 
-        private void addButton(object sender, RoutedEventArgs e)   //  点击下标栏的加号
-        {
-            Frame.Navigate(typeof(NewPage));
-        }
-
-        private async void shareButton(object sender, RoutedEventArgs e)
-        {
-
-            var messageDialog = new MessageDialog("");
-
-            messageDialog.Commands.Add(new UICommand("Close"));
-
-            messageDialog.DefaultCommandIndex = 0;
-
-            messageDialog.CancelCommandIndex = 1;
-
-            if (ViewModel.selectId == -1)
-            {
-                messageDialog.Content = "Please choose an item!";
-                await messageDialog.ShowAsync();
-            }
-            else
-            {
-                DataTransferManager.ShowShareUI();
-                DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-                dataTransferManager.DataRequested += DataTransferManager_DataRequested;
-            }
-        }
-
-        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
-        {
-            DataRequest request = args.Request;
-            
-            request.Data.Properties.Title = ViewModel.AllItems[ViewModel.selectId].title;
-            request.Data.SetText(ViewModel.AllItems[ViewModel.selectId].description);
-            request.Data.SetBitmap(ImageStreamRef);
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        private void addButton(object sender, RoutedEventArgs e)   //  点击下标栏的加号, 跳转到NewPage页面
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame == null) return;
-            if (rootFrame.CanGoBack && e.Handled == false)
-            {
-                e.Handled = true;
-                rootFrame.GoBack();
-            }
+            rootFrame.Navigate(typeof(NewPage));
         }
         
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)      //  导航到当前页面
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-            Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;      //  设置后退按钮的可视性. 当可后退时设为可见
 
-            ViewModel.selectId = -1;    //  刚进这个页面, 之前选中的不见了
+            ViewModel.selectId = -1;    //  刚进这个页面, 重置所选Item
 
-            if (e.NavigationMode == NavigationMode.New)
+            if (e.NavigationMode == NavigationMode.New)         //  重启时恢复挂起前数据的
             {
                 ApplicationData.Current.LocalSettings.Values.Remove("WholePage");
             }
             else
             {
-                if (ApplicationData.Current.LocalSettings.Values["image"] != null)
+                if (ApplicationData.Current.LocalSettings.Values["image"] != null)      //  恢复挂起前的图片
                 {
-                    StorageFile temp;
-                    temp = await StorageApplicationPermissions.FutureAccessList.GetFileAsync((string)ApplicationData.Current.LocalSettings.Values["image"]);
+                    StorageFile temp = await StorageApplicationPermissions.FutureAccessList.GetFileAsync((string)ApplicationData.Current.LocalSettings.Values["image"]);
                     IRandomAccessStream ir = await temp.OpenAsync(FileAccessMode.Read);
                     BitmapImage bi = new BitmapImage();
                     await bi.SetSourceAsync(ir);
@@ -151,13 +113,13 @@ namespace HomeWork1
                 }
 
 
-                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("WholePage"))
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("WholePage"))      //  恢复挂起前的其他内容
                 {
                     var composite = ApplicationData.Current.LocalSettings.Values["WholePage"] as ApplicationDataCompositeValue;
 
                     for (int i = 0; i < ViewModel.AllItems.Count(); i++)
                     {
-                        ViewModel.AllItems[i].completed = (bool)composite["ischecked" + i];
+                        ViewModel.AllItems[i].completed = (bool)composite["ischecked" + i];     //  恢复挂起前Item的checkBox值
                     }
 
                     NewPage.Current.title.Text = (string)composite["Title"];
@@ -174,9 +136,9 @@ namespace HomeWork1
             }
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e) // 从该页面离开时
+        protected override void OnNavigatedFrom(NavigationEventArgs e) // 导航离开该页面
         {
-            bool suspending = ((App)App.Current).issuspend;
+            bool suspending = ((App)App.Current).issuspend;     //  挂起时保存数据
             if (suspending)
             {
                 var composite = new ApplicationDataCompositeValue();

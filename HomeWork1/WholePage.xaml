@@ -8,15 +8,9 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Frame Name="MainPageFrame" Grid.Column="0"/>
-        <Frame Name="NewPageFrame" Grid.Column="1"/>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
-                <VisualState x:Name="VisualStateMin0">
+                <VisualState x:Name="VisualStateMin1">
                     <VisualState.Setters>
                         <Setter Target="NewPageFrame.Visibility" Value="Collapsed"/>
                         <Setter Target="MainPageFrame.(Grid.ColumnSpan)" Value="2"/>
@@ -27,7 +21,7 @@
                 </VisualState>
                 <VisualState x:Name="VisualStateMin800">
                     <VisualState.Setters>
-                        <Setter Target="barButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="barAddButton.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800"/>
@@ -35,11 +29,16 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame Name="MainPageFrame" Grid.Column="0"/>
+        <Frame Name="NewPageFrame" Grid.Column="1"/>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Name="barButtonAdd" Icon="Add" Click="addButton"/>
-            <AppBarButton x:Name="barButtonShare" Icon="Share" Click="shareButton"/>
+            <AppBarButton x:Name="barAddButton" Icon="Add" Click="addButton"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

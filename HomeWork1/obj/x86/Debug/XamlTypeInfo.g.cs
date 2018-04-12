@@ -233,7 +233,6 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
             case 6:   //  HomeWork1.WholePage
                 userType = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
                 userType.Activator = Activate_6_WholePage;
-                userType.AddMemberName("ImageStreamRef");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -245,11 +244,6 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
         private object get_0_NewPage_ImageStreamRef(object instance)
         {
             var that = (global::HomeWork1.NewPage)instance;
-            return that.ImageStreamRef;
-        }
-        private object get_1_WholePage_ImageStreamRef(object instance)
-        {
-            var that = (global::HomeWork1.WholePage)instance;
             return that.ImageStreamRef;
         }
 
@@ -264,12 +258,6 @@ namespace HomeWork1.HomeWork1_XamlTypeInfo
                 userType = (global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType)GetXamlTypeByName("HomeWork1.NewPage");
                 xamlMember = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlMember(this, "ImageStreamRef", "Windows.Storage.Streams.RandomAccessStreamReference");
                 xamlMember.Getter = get_0_NewPage_ImageStreamRef;
-                xamlMember.SetIsReadOnly();
-                break;
-            case "HomeWork1.WholePage.ImageStreamRef":
-                userType = (global::HomeWork1.HomeWork1_XamlTypeInfo.XamlUserType)GetXamlTypeByName("HomeWork1.WholePage");
-                xamlMember = new global::HomeWork1.HomeWork1_XamlTypeInfo.XamlMember(this, "ImageStreamRef", "Windows.Storage.Streams.RandomAccessStreamReference");
-                xamlMember.Getter = get_1_WholePage_ImageStreamRef;
                 xamlMember.SetIsReadOnly();
                 break;
             }

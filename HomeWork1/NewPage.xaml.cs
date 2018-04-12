@@ -27,22 +27,23 @@ namespace HomeWork1
         private TodoItemViewModel ViewModel = WholePage.ViewModel;
         public static NewPage Current;
 
-        public bool isUpdate = false;
+        public bool isUpdate = false;       //  判断处于创建状态还是更新状态
 
-        public RandomAccessStreamReference ImageStreamRef { get; private set; }
+        public RandomAccessStreamReference ImageStreamRef { get; private set; }     //  图片共享的函数
 
         public NewPage()
         {
             this.InitializeComponent();
             Current = this;
 
+            barShareButton.Visibility = Visibility.Collapsed;           //  默认共享按钮不可见
+
             Uri imageUri = new Uri("ms-appx:///Assets/tv.jpg");         //  图片的共享
             this.ImageStreamRef = RandomAccessStreamReference.CreateFromUri(imageUri);
         }
 
-        private async void shareButton(object sender, RoutedEventArgs e)
+        private void shareButton(object sender, RoutedEventArgs e)      //  共享按钮
         {
-
             var messageDialog = new MessageDialog("");
 
             messageDialog.Commands.Add(new UICommand("Close"));
@@ -50,18 +51,10 @@ namespace HomeWork1
             messageDialog.DefaultCommandIndex = 0;
 
             messageDialog.CancelCommandIndex = 1;
-
-            if (ViewModel.selectId == -1)
-            {
-                messageDialog.Content = "Please choose an item!";
-                await messageDialog.ShowAsync();
-            }
-            else
-            {
-                DataTransferManager.ShowShareUI();
-                DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-                dataTransferManager.DataRequested += DataTransferManager_DataRequested;
-            }
+            
+            DataTransferManager.ShowShareUI();
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
 
         private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
@@ -73,7 +66,7 @@ namespace HomeWork1
             request.Data.SetBitmap(ImageStreamRef);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                 Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
@@ -84,6 +77,17 @@ namespace HomeWork1
             }
             else
             {
+                if (ApplicationData.Current.LocalSettings.Values["image"] != null)
+                {
+                    StorageFile temp;
+                    temp = await StorageApplicationPermissions.FutureAccessList.GetFileAsync((string)ApplicationData.Current.LocalSettings.Values["image"]);
+                    IRandomAccessStream ir = await temp.OpenAsync(FileAccessMode.Read);
+                    BitmapImage bi = new BitmapImage();
+                    await bi.SetSourceAsync(ir);
+                    NewPage.Current.image.Source = bi;
+                    ApplicationData.Current.LocalSettings.Values["image"] = null;
+                }
+
                 if (ApplicationData.Current.LocalSettings.Values.ContainsKey("NewPage"))
                 {
                     var composite = ApplicationData.Current.LocalSettings.Values["NewPage"] as ApplicationDataCompositeValue;
@@ -95,6 +99,7 @@ namespace HomeWork1
                     {
                         create.Content = "Update";
                         cancel.Content = "Delete";
+                        barShareButton.Visibility = Visibility.Visible;
                     }
                     ApplicationData.Current.LocalSettings.Values.Remove("NewPage");
                 }
@@ -112,47 +117,27 @@ namespace HomeWork1
                 composite["Date"] = dueDate.Date;
                 composite["isUpdate"] = isUpdate;
                 ApplicationData.Current.LocalSettings.Values["NewPage"] = composite;
-                
-            }
-        }
-
-        private void cancel_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            if (isUpdate != true)
-            {
-                create.Content = "Create";
-                cancel.Content = "Cancel";
-            }
-            else
-            {
-                ViewModel.removeTodoItem();
-                isUpdate = false;
-                create.Content = "Create";
-                cancel.Content = "Cancel";
-                Frame rootFrame = Window.Current.Content as Frame;
-                rootFrame.Navigate(typeof(WholePage));
-
-                WholePage.Current.tileCreate();           //  创建新的Item, 要更新磁贴
             }
         }
 
 
-        public void Update()
+        public void Update()        //  当MainPage中选中Item, 调用NewPage中的Update显示Item的细节
         {
-            create.Content = "Update";
-            cancel.Content = "Delete";
+            isUpdate = true;        //  处于更新状态
 
-            var itemIndex = ViewModel.selectId;
+            create.Content = "Update";      //  处于更新时, create按钮变为update按钮
+            cancel.Content = "Delete";      //  处于更新时, cancel按钮变为delete按钮
+            barShareButton.Visibility = Visibility.Visible;     //  处于更新时, share按钮可见
+
+            var itemIndex = ViewModel.selectId;             
             
-            image.Source = ViewModel.allItems[itemIndex].image;
+            image.Source = ViewModel.allItems[itemIndex].image;     //  在NewPage中显示Item的细节
             title.Text = ViewModel.allItems[itemIndex].title;
             detail.Text = ViewModel.allItems[itemIndex].description;
             dueDate.Date = ViewModel.allItems[itemIndex].date.Date;
-
-            isUpdate = true;
         }
 
-        private async void create_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void create_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)       //  创建或更新Item的事件
         {
             var messageDialog = new MessageDialog("");
 
@@ -186,18 +171,41 @@ namespace HomeWork1
                 else
                 {
                     ViewModel.updateTodoItem(image.Source as BitmapImage, title.Text, detail.Text, dueDate.Date.Date);
-                    isUpdate = false;
+                    isUpdate = false;           //  更新状态结束
                     create.Content = "Create";
                     cancel.Content = "Cancel";
+                    barShareButton.Visibility = Visibility.Collapsed;
                 }
-                Frame rootFrame = Window.Current.Content as Frame;
+                Frame rootFrame = Window.Current.Content as Frame;      //  创建或更新完, 导航会WholePage
                 rootFrame.Navigate(typeof(WholePage));
 
                 WholePage.Current.tileCreate();       //  创建新的Item, 要更新磁贴
             }
         }
 
-        private async void Button_Upload_Image(object sender, RoutedEventArgs e)
+        private void cancel_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)     //  取消创建或删除的Item
+        {
+            if (isUpdate != true)
+            {
+                create.Content = "Create";
+                cancel.Content = "Cancel";
+            }
+            else
+            {
+                ViewModel.removeTodoItem();
+                isUpdate = false;
+                create.Content = "Create";
+                cancel.Content = "Cancel";
+                barShareButton.Visibility = Visibility.Collapsed;
+
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(WholePage));
+
+                WholePage.Current.tileCreate();           //  创建新的Item, 要更新磁贴
+            }
+        }
+
+        private async void Button_Upload_Image(object sender, RoutedEventArgs e)        //  上传图片的事件
         {
             FileOpenPicker picker = new FileOpenPicker();
             picker.ViewMode = PickerViewMode.Thumbnail;
@@ -209,7 +217,7 @@ namespace HomeWork1
             StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                ApplicationData.Current.LocalSettings.Values["image"] = StorageApplicationPermissions.FutureAccessList.Add(file);
+                ApplicationData.Current.LocalSettings.Values["image"] = StorageApplicationPermissions.FutureAccessList.Add(file);   //  挂起时保存图片
 
                 try
                 {

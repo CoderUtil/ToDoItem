@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Todos.Models
 {
-    public class TodoItem
+    public class TodoItem      
     {
         public string id { get; set; }
 
