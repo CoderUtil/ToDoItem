@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 using Windows.ApplicationModel.DataTransfer;
+using Todos.Tile;
+using Todos.DataBaseModels;
 
 namespace HomeWork1
 {
@@ -52,7 +54,8 @@ namespace HomeWork1
 
             messageDialog.CancelCommandIndex = 1;
             
-            DataTransferManager.ShowShareUI();
+            DataTransferManager.ShowShareUI();      //  启动共享 UI
+
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
         }
@@ -90,6 +93,8 @@ namespace HomeWork1
 
                 if (ApplicationData.Current.LocalSettings.Values.ContainsKey("NewPage"))
                 {
+                    ViewModel.allItems = TodoItemDataBase.getAllItems();
+
                     var composite = ApplicationData.Current.LocalSettings.Values["NewPage"] as ApplicationDataCompositeValue;
                     title.Text = (string)composite["Title"];
                     detail.Text = (string)composite["Details"];
@@ -129,8 +134,11 @@ namespace HomeWork1
             cancel.Content = "Delete";      //  处于更新时, cancel按钮变为delete按钮
             barShareButton.Visibility = Visibility.Visible;     //  处于更新时, share按钮可见
 
-            var itemIndex = ViewModel.selectId;             
-            
+            var itemIndex = ViewModel.selectId;
+
+            if (itemIndex == -1)
+                return;
+
             image.Source = ViewModel.allItems[itemIndex].image;     //  在NewPage中显示Item的细节
             title.Text = ViewModel.allItems[itemIndex].title;
             detail.Text = ViewModel.allItems[itemIndex].description;
@@ -158,7 +166,7 @@ namespace HomeWork1
 
                 await messageDialog.ShowAsync();
             }
-            else if (dueDate.Date < DateTime.Now.Date)
+            else if (dueDate.Date < DateTimeOffset.Now.Date)
             {
                 messageDialog.Content = "Date is small than current date!";
 
@@ -166,7 +174,7 @@ namespace HomeWork1
             }
             else
             {
-                if (isUpdate != true)
+                if (isUpdate != true) 
                     ViewModel.AddTodoItem(image.Source as BitmapImage, title.Text, detail.Text, dueDate.Date.Date);
                 else
                 {
@@ -179,7 +187,7 @@ namespace HomeWork1
                 Frame rootFrame = Window.Current.Content as Frame;      //  创建或更新完, 导航会WholePage
                 rootFrame.Navigate(typeof(WholePage));
 
-                WholePage.Current.tileCreate();       //  创建新的Item, 要更新磁贴
+                Tile.tileCreate();       //  创建新的Item, 要更新磁贴
             }
         }
 
@@ -201,7 +209,7 @@ namespace HomeWork1
                 Frame rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(WholePage));
 
-                WholePage.Current.tileCreate();           //  创建新的Item, 要更新磁贴
+                Tile.tileCreate();           //  更新磁贴
             }
         }
 

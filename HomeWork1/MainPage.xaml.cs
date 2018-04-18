@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Shapes;
 using Windows.UI.Core;
 using System.Diagnostics;
 using Windows.Storage;
+using Todos.DataBaseModels;
 
 namespace HomeWork1
 {
@@ -50,6 +51,11 @@ namespace HomeWork1
                 rootFrame.Navigate(typeof(NewPage));
             }
             NewPage.Current.Update();
+        }
+
+        private void clickCheckBox(object sender, RoutedEventArgs e)
+        {
+            TodoItemDataBase.updateCompleted();
         }
     }
 }

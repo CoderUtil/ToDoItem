@@ -226,3 +226,11 @@ C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\resources.en-us.resfiles
 C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\ProjectArchitectures.txt
 C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Microsoft.Toolkit.Uwp.Notifications.dll
 C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\Microsoft.Toolkit.Uwp.Notifications.pri.xml
+C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\SQLitePCL.Ext.dll
+C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\SQLitePCL.Ext.pri
+C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\SQLitePCL.dll
+C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\SQLitePCL\en\SQLitePCL.Resources.resw
+C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\HomeWork1.csproj.GenerateResource.Cache
+C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\resources.en.resfiles
+C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\resources.en.resfiles.intermediate
+C:\Users\code\Desktop\HomeWork1\HomeWork1\obj\x86\Debug\SQLitePCL.Ext.pri.xml

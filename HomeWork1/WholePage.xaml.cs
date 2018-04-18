@@ -1,9 +1,11 @@
-﻿using System;
+﻿using SQLitePCL;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Todos.Models;
 using Todos.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
@@ -23,7 +25,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-
+using Todos.DataBaseModels;
+using Todos.Tile;
 
 namespace HomeWork1
 {
@@ -47,7 +50,10 @@ namespace HomeWork1
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;       //  创建后退Button
 
-            tileCreate();   //  调用创建磁贴的函数
+            Tile.tileCreate();   //  调用创建磁贴的函数
+            TodoItemDataBase.createTable();     //  若数据库表不存在, 则创建数据库表
+
+            ViewModel.allItems = TodoItemDataBase.getAllItems();  
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
@@ -62,26 +68,6 @@ namespace HomeWork1
             }
         }
 
-        public void tileCreate()       //  创建磁贴
-        {
-            Windows.Data.Xml.Dom.XmlDocument document = new Windows.Data.Xml.Dom.XmlDocument();
-            document.LoadXml(System.IO.File.ReadAllText("XMLFile1.xml"));
-            var Texttitle = document.GetElementsByTagName("text");
-
-            TileUpdateManager.CreateTileUpdaterForApplication().Clear();
-            TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
-            for (int i = 0; i < ViewModel.AllItems.Count; i++)
-            {
-                if (i < 5)
-                {
-                    Texttitle[0].InnerText = Texttitle[2].InnerText = Texttitle[4].InnerText = ViewModel.AllItems[i].title;
-                    Texttitle[1].InnerText = Texttitle[3].InnerText = Texttitle[5].InnerText = ViewModel.AllItems[i].description;
-                    TileNotification newTile = new TileNotification(document);
-                    TileUpdateManager.CreateTileUpdaterForApplication().Update(newTile);
-                }
-            }
-        }
-
         private void addButton(object sender, RoutedEventArgs e)   //  点击下标栏的加号, 跳转到NewPage页面
         {
             Frame rootFrame = Window.Current.Content as Frame;
@@ -93,8 +79,6 @@ namespace HomeWork1
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
             Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;      //  设置后退按钮的可视性. 当可后退时设为可见
-
-            ViewModel.selectId = -1;    //  刚进这个页面, 重置所选Item
 
             if (e.NavigationMode == NavigationMode.New)         //  重启时恢复挂起前数据的
             {
@@ -115,12 +99,8 @@ namespace HomeWork1
 
                 if (ApplicationData.Current.LocalSettings.Values.ContainsKey("WholePage"))      //  恢复挂起前的其他内容
                 {
+                    ViewModel.allItems = TodoItemDataBase.getAllItems(); 
                     var composite = ApplicationData.Current.LocalSettings.Values["WholePage"] as ApplicationDataCompositeValue;
-
-                    for (int i = 0; i < ViewModel.AllItems.Count(); i++)
-                    {
-                        ViewModel.AllItems[i].completed = (bool)composite["ischecked" + i];     //  恢复挂起前Item的checkBox值
-                    }
 
                     NewPage.Current.title.Text = (string)composite["Title"];
                     NewPage.Current.detail.Text = (string)composite["Details"];
@@ -147,12 +127,7 @@ namespace HomeWork1
                 composite["Date"] = NewPage.Current.dueDate.Date;
                 composite["isUpdate"] = NewPage.Current.isUpdate;
 
-                for (int i = 0; i < ViewModel.AllItems.Count(); i++)
-                {
-                    composite["ischecked" + i] = ViewModel.AllItems[i].completed;
-                }
                 ApplicationData.Current.LocalSettings.Values["WholePage"] = composite;
-
             }
         }
     }

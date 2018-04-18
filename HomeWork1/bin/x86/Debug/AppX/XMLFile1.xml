@@ -5,16 +5,16 @@
     <binding template="TileSmall">
       <text>title</text>
       <text hint-style="captionSubtle">description</text>
-      <image src="Assets/background.jpg" placement="background"/>
+      <image src="Assets/background.jpg" placement="background"/>   
     </binding>
 
-    <binding template="TileMedium" branding="name">
+    <binding template="TileMedium"> 
       <text hint-wrap="true" hint-maxLines="2">title</text>
       <text hint-style="captionSubtle">description</text>
       <image src="Assets/background.jpg" placement="background"/>
     </binding>
 
-    <binding template="TileWide" branding="nameAndLogo">
+    <binding template="TileWide">
       <text>title</text>
       <text hint-style="captionSubtle">description</text>
       <image src="Assets/background.jpg" placement="background"/>

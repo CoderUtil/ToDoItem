@@ -1,4 +1,6 @@
 WinMetadata\Windows.winmd
+SQLitePCL.Ext.dll
+SQLitePCL.Ext.pri
 Assets\background.jpg
 Assets\homework.jpg
 Assets\LockScreenLogo.scale-200.png

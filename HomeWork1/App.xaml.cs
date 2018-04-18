@@ -21,7 +21,6 @@ namespace HomeWork1
 {
     sealed partial class App : Application
     {
-
         public bool issuspend = false;      //  判断当前页面是否挂起
 
         public App()

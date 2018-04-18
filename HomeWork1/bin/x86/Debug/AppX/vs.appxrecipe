@@ -19,7 +19,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>35F1D1EA797389FC89C1CCF9024CCB09CA36694B4495FF1BEE1CDD4E5EA5C52E</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>6ACDFED8F22B6BB620C5F8367F3A2D7A926FE53C63C00E12210E28BCF00580DD</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>cb2199a8-c70c-44cd-9e0a-68daeab9cf73_1.0.0.0_x86__83dyvbd0y3w4r</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>cb2199a8-c70c-44cd-9e0a-68daeab9cf73_83dyvbd0y3w4r!App</RegisteredUserModeAppID>
     <RegisteredPackageID>cb2199a8-c70c-44cd-9e0a-68daeab9cf73</RegisteredPackageID>
@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-12T14:09:02.684</Modified>
+      <Modified>2018-04-18T05:44:38.195</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\HomeWork1.exe">
       <PackagePath>entrypoint\HomeWork1.exe</PackagePath>
-      <Modified>2018-04-12T14:09:01.809</Modified>
+      <Modified>2018-04-18T05:44:37.676</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -202,6 +202,10 @@
     <AppxPackagedFile Include="C:\Users\code\.nuget\packages\runtime.win7.system.private.uri\4.3.0\runtimes\win\lib\netcore50\System.Private.Uri.dll">
       <PackagePath>System.Private.Uri.dll</PackagePath>
       <Modified>2016-11-04T20:56:36.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\code\.nuget\packages\sqlitepcl\3.8.7.2\lib\netcore451\SQLitePCL.dll">
+      <PackagePath>SQLitePCL.dll</PackagePath>
+      <Modified>2014-12-09T03:04:52.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackages\system.appcontext\4.1.0\lib\netcore50\System.AppContext.dll">
       <PackagePath>System.AppContext.dll</PackagePath>
@@ -499,6 +503,14 @@
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
       <Modified>2016-06-11T14:15:04.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UAP\v0.8.0.0\ExtensionSDKs\SQLite.UWP.2015\3.23.1\Redist\Debug\x86\sqlite3.dll">
+      <PackagePath>sqlite3.dll</PackagePath>
+      <Modified>2018-04-13T05:38:06.879</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\code\.nuget\packages\sqlitepcl\3.8.7.2\build\netcore451\SQLitePCL.Ext.dll">
+      <PackagePath>SQLitePCL.Ext.dll</PackagePath>
+      <Modified>2014-12-09T03:04:52.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\Assets\background.jpg">
       <PackagePath>Assets\background.jpg</PackagePath>
       <Modified>2018-03-21T16:13:38.216</Modified>
@@ -521,7 +533,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\XMLFile1.xml">
       <PackagePath>XMLFile1.xml</PackagePath>
-      <Modified>2018-04-10T12:55:38.529</Modified>
+      <Modified>2018-04-12T14:49:50.333</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -559,7 +571,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\HomeWork1.xr.xml">
       <PackagePath>HomeWork1.xr.xml</PackagePath>
-      <Modified>2018-04-12T14:09:01.588</Modified>
+      <Modified>2018-04-18T01:36:43.972</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -568,11 +580,11 @@
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-12T14:09:02.246</Modified>
+      <Modified>2018-04-18T01:36:44.765</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Core\HomeWork1.exe">
       <PackagePath>HomeWork1.exe</PackagePath>
-      <Modified>2018-04-12T14:09:02.681</Modified>
+      <Modified>2018-04-18T05:44:38.190</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
