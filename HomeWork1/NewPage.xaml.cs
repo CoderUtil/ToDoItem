@@ -31,18 +31,14 @@ namespace HomeWork1
 
         public bool isUpdate = false;       //  判断处于创建状态还是更新状态
 
-        public RandomAccessStreamReference ImageStreamRef { get; private set; }     //  图片共享的函数
-
         public NewPage()
         {
             this.InitializeComponent();
             Current = this;
 
             barShareButton.Visibility = Visibility.Collapsed;           //  默认共享按钮不可见
-
-            Uri imageUri = new Uri("ms-appx:///Assets/tv.jpg");         //  图片的共享
-            this.ImageStreamRef = RandomAccessStreamReference.CreateFromUri(imageUri);
         }
+            
 
         private void shareButton(object sender, RoutedEventArgs e)      //  共享按钮
         {
@@ -64,8 +60,9 @@ namespace HomeWork1
         {
             DataRequest request = args.Request;
 
-            request.Data.Properties.Title = ViewModel.AllItems[ViewModel.selectId].title;
-            request.Data.SetText(ViewModel.AllItems[ViewModel.selectId].description);
+            request.Data.Properties.Title = ViewModel.allItems[ViewModel.selectId].title;
+            request.Data.SetText(ViewModel.allItems[ViewModel.selectId].description);
+            RandomAccessStreamReference ImageStreamRef = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/" + ViewModel.allItems[ViewModel.selectId].imageName));
             request.Data.SetBitmap(ImageStreamRef);
         }
 
@@ -223,7 +220,7 @@ namespace HomeWork1
             picker.FileTypeFilter.Add(".png");
 
             StorageFile file = await picker.PickSingleFileAsync();
-            WholePage.ViewModel.ImageName = file.Name;
+            TodoItemViewModel.ImageName = file.Name;    //  获取文件名
 
             if (file != null)
             {

@@ -15,8 +15,10 @@ namespace Todos.Tile
         {
             Windows.Data.Xml.Dom.XmlDocument document = new Windows.Data.Xml.Dom.XmlDocument();
             document.LoadXml(File.ReadAllText("XMLFile1.xml"));     //  读取XML文件
+            
 
             var Texttitle = document.GetElementsByTagName("text");
+            var Image = document.GetElementsByTagName("image");
 
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
             TileUpdateManager.CreateTileUpdaterForApplication().EnableNotificationQueue(true);
@@ -26,6 +28,7 @@ namespace Todos.Tile
                 {
                     Texttitle[0].InnerText = Texttitle[2].InnerText = Texttitle[4].InnerText = WholePage.ViewModel.AllItems[i].title;
                     Texttitle[1].InnerText = Texttitle[3].InnerText = Texttitle[5].InnerText = WholePage.ViewModel.AllItems[i].description;
+
                     TileNotification newTile = new TileNotification(document);
                     TileUpdateManager.CreateTileUpdaterForApplication().Update(newTile);
                 }

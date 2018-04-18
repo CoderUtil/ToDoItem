@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 using Todos.DataBaseModels;
+using Todos.ViewModels;
 
 namespace Todos.Models
 {
@@ -13,6 +14,7 @@ namespace Todos.Models
         public string id { get; set; }
 
         public BitmapImage image { get; set; }
+        public string imageName { get; set; }
 
         public string title { get; set; }
 

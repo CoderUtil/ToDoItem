@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2018-04-18T07:47:30.509</Modified>
+      <Modified>2018-04-18T13:45:10.755</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\HomeWork1.exe">
       <PackagePath>entrypoint\HomeWork1.exe</PackagePath>
-      <Modified>2018-04-18T07:47:29.535</Modified>
+      <Modified>2018-04-18T13:45:10.247</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\NuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -584,7 +584,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\code\Desktop\HomeWork1\HomeWork1\bin\x86\Debug\Core\HomeWork1.exe">
       <PackagePath>HomeWork1.exe</PackagePath>
-      <Modified>2018-04-18T07:47:30.503</Modified>
+      <Modified>2018-04-18T13:45:10.750</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

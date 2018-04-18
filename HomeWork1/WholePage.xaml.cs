@@ -50,10 +50,10 @@ namespace HomeWork1
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;       //  创建后退Button
 
-            Tile.tileCreate();   //  调用创建磁贴的函数
             TodoItemDataBase.createTable();     //  若数据库表不存在, 则创建数据库表
+            ViewModel.allItems = TodoItemDataBase.getAllItems();    //  从数据库中获取信息
 
-            ViewModel.allItems = TodoItemDataBase.getAllItems();  
+            Tile.tileCreate();   //  调用创建磁贴的函数
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)

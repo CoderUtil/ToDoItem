@@ -102,6 +102,7 @@ namespace Todos.DataBaseModels
                 {
                     TodoItem item = new TodoItem(new BitmapImage(new Uri("ms-appx:///Assets/" + (string)statement[5])), (string)statement[1], (string)statement[2], Convert.ToDateTime(statement[3]), Convert.ToBoolean(statement[4]));
                     item.id = (string)statement[0];
+                    item.imageName = (string)statement[5];
                     items.Add(item);
                 }
             }
