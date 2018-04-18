@@ -223,6 +223,8 @@ namespace HomeWork1
             picker.FileTypeFilter.Add(".png");
 
             StorageFile file = await picker.PickSingleFileAsync();
+            WholePage.ViewModel.ImageName = file.Name;
+
             if (file != null)
             {
                 ApplicationData.Current.LocalSettings.Values["image"] = StorageApplicationPermissions.FutureAccessList.Add(file);   //  挂起时保存图片

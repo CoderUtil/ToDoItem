@@ -19,6 +19,8 @@ using Windows.UI.Core;
 using System.Diagnostics;
 using Windows.Storage;
 using Todos.DataBaseModels;
+using Windows.UI.Popups;
+using System.Text;
 
 namespace HomeWork1
 {
@@ -56,6 +58,29 @@ namespace HomeWork1
         private void clickCheckBox(object sender, RoutedEventArgs e)
         {
             TodoItemDataBase.updateCompleted();
+        }
+        
+        private async void clickSearchButton(object sender, RoutedEventArgs e)
+        {
+            var messageDialog = new MessageDialog("");
+
+            messageDialog.Commands.Add(new UICommand("Close"));
+
+            messageDialog.DefaultCommandIndex = 0;
+
+            messageDialog.CancelCommandIndex = 1;
+
+            if (searchMessage.Text == "")
+            {
+                messageDialog.Content = "Please input the message for search";
+            }
+            else
+            {
+                StringBuilder result = TodoItemDataBase.query(searchMessage.Text);
+                messageDialog.Content = result.ToString();
+            }
+
+            await messageDialog.ShowAsync();
         }
     }
 }

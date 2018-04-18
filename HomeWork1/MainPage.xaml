@@ -9,7 +9,8 @@
     mc:Ignorable="d" FontSize="22">
     
     <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <VisualStateManager.VisualStateGroups>      <!-- 自适应触发器放在ScrollViewer外面则不起作用; 放在Grid里面也不起作用. 应该是放在要改变的控件的外面 -->
+        <VisualStateManager.VisualStateGroups>
+            <!-- 自适应触发器放在ScrollViewer外面则不起作用; 放在Grid里面也不起作用. 应该是放在要改变的控件的外面 -->
             <VisualStateGroup>
                 <VisualState x:Name="VisualStateMin600">
                     <VisualState.Setters>
@@ -30,8 +31,20 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid x:Name="blank"/>      <!-- 将它的可见度与image的可见度绑定, 设置它等于设置image -->
-            <ListView x:Name="list" ItemsSource="{x:Bind ViewModel.allItems}" SelectionChanged="ItemSelect" IsItemClickEnabled="True">
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 20, 20, 0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="searchMessage" Width="100" Grid.Column="0" Margin="0, 0, 30, 0"/>
+                <Button x:Name="searchButton" Content="search" Grid.Column="1" Click="clickSearchButton"/>
+            </Grid>
+            <ListView x:Name="list" ItemsSource="{x:Bind ViewModel.allItems}" SelectionChanged="ItemSelect" IsItemClickEnabled="True" Grid.Row="1">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="md:TodoItem">
                         <Grid>

@@ -18,13 +18,15 @@ namespace Todos.ViewModels
         public ObservableCollection<TodoItem> AllItems { get { return this.allItems; } }            //  数据绑定不支持绑定一个getAttribute方法, 因此只能这个属性的{get;}获取
 
         public int selectId = -1;
+        public string ImageName = "background.jpg";      //  默认图片的名称
         
         public void AddTodoItem(BitmapImage image, string title, string description, DateTimeOffset date)
         {
             TodoItem newItem = new TodoItem(image, title, description, date);
             this.allItems.Add(newItem);
+            TodoItemDataBase.insert(newItem.id, newItem.title, newItem.description, newItem.date, newItem.completed, ImageName);      //  插入数据库项
 
-            TodoItemDataBase.insert(newItem.id, newItem.title, newItem.description, newItem.date, newItem.completed);      //  插入数据库项
+            ImageName = "background.jpg";   //  恢复为默认图片
         }
 
         public void updateTodoItem(BitmapImage image, string title, string description, DateTimeOffset date)

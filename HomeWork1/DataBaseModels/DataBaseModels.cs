@@ -18,7 +18,7 @@ namespace Todos.DataBaseModels
 {
     public class TodoItemDataBase
     {
-
+       
         public static void createTable()
         {
             SQLiteConnection conn = new SQLiteConnection("TodoItemDataBase.db");
@@ -27,7 +27,8 @@ namespace Todos.DataBaseModels
                                             Title    VARCHAR( 140 ),
                                             Description    VARCHAR( 140 ),
                                             Date VARCHAR( 140 ),
-                                            Completed VARCHAR( 140 )
+                                            Completed VARCHAR( 140 ),
+                                            ImageName VARCHAR( 140 )
                                             );";
             using (var statement = conn.Prepare(sql))
             {
@@ -35,17 +36,18 @@ namespace Todos.DataBaseModels
             }
         }
 
-        public static void insert(string id, string title, string description, DateTimeOffset date, bool completed)
+        public static void insert(string id, string title, string description, DateTimeOffset date, bool completed, string ImageName)
         {
             SQLiteConnection conn = new SQLiteConnection("TodoItemDataBase.db");
             CultureInfo provider = CultureInfo.InvariantCulture;
-            using (var custstmt = conn.Prepare("INSERT INTO TodoItemList (Id, Title, Description, Date, Completed) VALUES (?, ?, ?, ?, ?)"))
+            using (var custstmt = conn.Prepare("INSERT INTO TodoItemList (Id, Title, Description, Date, Completed, ImageName) VALUES (?, ?, ?, ?, ?, ?)"))
             {
                 custstmt.Bind(1, id);           //  数字对应字段出现的次序
                 custstmt.Bind(2, title);
                 custstmt.Bind(3, description);
                 custstmt.Bind(4, date.ToString(provider));
                 custstmt.Bind(5, completed.ToString());
+                custstmt.Bind(6, ImageName);
                 custstmt.Step();
             }
         }
@@ -93,12 +95,12 @@ namespace Todos.DataBaseModels
             SQLiteConnection conn = new SQLiteConnection("TodoItemDataBase.db");
             ObservableCollection<TodoItem> items = new ObservableCollection<TodoItem>();
 
-            using (var statement = conn.Prepare("SELECT Id, Title, Description, Date, Completed FROM TodoItemList"))
+            using (var statement = conn.Prepare("SELECT Id, Title, Description, Date, Completed, ImageName FROM TodoItemList"))
             {
 
                 while (SQLiteResult.ROW == statement.Step())
                 {
-                    TodoItem item = new TodoItem(new BitmapImage(new Uri("ms-appx:///Assets/tv.jpg")), (string)statement[1], (string)statement[2], Convert.ToDateTime(statement[3]), Convert.ToBoolean(statement[4]));
+                    TodoItem item = new TodoItem(new BitmapImage(new Uri("ms-appx:///Assets/" + (string)statement[5])), (string)statement[1], (string)statement[2], Convert.ToDateTime(statement[3]), Convert.ToBoolean(statement[4]));
                     item.id = (string)statement[0];
                     items.Add(item);
                 }
