@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<tile>
+  <visual>
+    <binding template="TileMedium" branding="nameAndLogo">
+      <text>{0}</text>
+      <image src="{3}" placement="background"/>
+    </binding>
+
+    <binding template="TileWide" branding="nameAndLogo">
+      <group>
+        <subgroup hint-weight="7">
+          <text hint-style="subtitle">{0}</text>
+        </subgroup>
+        <subgroup hint-weight="3">
+          <text hint-align="right">{2}</text>
+        </subgroup>
+      </group>
+      <text hint-style="captionSubtle" hint-wrap="true">{1}</text>
+      <image src="{3}" placement="background"/>
+    </binding>
+
+    <binding template="TileLarge" branding="nameAndLogo">
+      <group>
+        <subgroup hint-weight="7">
+          <text hint-style="subtitle">{0}</text>
+        </subgroup>
+        <subgroup hint-weight="3">
+          <text hint-align="right">{2}</text>
+        </subgroup>
+      </group>
+      <text/>
+      <text hint-style="captionSubtle" hint-align="center" hint-wrap="true">{1}</text>
+      <image src="{3}" placement="background"/>
+    </binding>
+
+  </visual>
+</tile>

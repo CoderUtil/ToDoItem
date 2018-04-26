@@ -106,6 +106,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tile\Tile.cs" />
     <Compile Include="ViewModels\ListItemViewModels.cs" />
+    <Compile Include="Weather\GetWeatherByJson.cs" />
+    <Compile Include="Weather\GetWeatherByXML.cs" />
     <Compile Include="WholePage.xaml.cs">
       <DependentUpon>WholePage.xaml</DependentUpon>
     </Compile>
@@ -129,7 +131,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="XMLFile1.xml">
+    <Content Include="Tile\Tile.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
@@ -152,6 +154,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Net.Http">
+      <Version>2.2.29</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>

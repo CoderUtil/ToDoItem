@@ -21,6 +21,9 @@ using Windows.Storage;
 using Todos.DataBaseModels;
 using Windows.UI.Popups;
 using System.Text;
+using Windows.UI.Xaml.Media.Imaging;
+using JSON.Weather;
+using XML.Weather;
 
 namespace HomeWork1
 {
@@ -42,6 +45,23 @@ namespace HomeWork1
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                 Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+
+            getWeatherMessageByJSON();
+            getWeatherMessageByXML();
+        }
+
+        private async void getWeatherMessageByJSON()
+        {
+            RootObject myWeather = await GetWeatherByJson.GetWeather(23.1, 113.2);
+            weatherTempType.Text = myWeather.weather[0].main;
+            string icon = String.Format("http://openweathermap.org/img/w/{0}.png", myWeather.weather[0].icon);
+            weatherImage.Source = new BitmapImage(new Uri(icon, UriKind.Absolute));
+        }
+
+        private async void getWeatherMessageByXML()
+        {
+            CityWeatherResponse myWeather = await GetWeatherByXML.GetWeather("广州");
+            weatherTempNum.Text = myWeather.Results.Weather_data.Temperature[0];
         }
 
         private void ItemSelect(object sender, SelectionChangedEventArgs e)     //  点击Item时获取选定Item的事件

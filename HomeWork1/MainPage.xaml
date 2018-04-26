@@ -36,13 +36,25 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid x:Name="blank"/>      <!-- 将它的可见度与image的可见度绑定, 设置它等于设置image -->
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 20, 20, 0" Grid.Row="0">
+            <Grid VerticalAlignment="Center" Margin="30, 20, 20, 40" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="searchMessage" Width="100" Grid.Column="0" Margin="0, 0, 30, 0"/>
-                <Button x:Name="searchButton" Content="search" Grid.Column="1" Click="clickSearchButton"/>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Name="weatherImage" Width="70" Height="70" Grid.Column="0" Margin="0 0 20 0"/>
+                    <StackPanel  Grid.Column="1"  Margin="0 0 20 0">
+                        <TextBlock Name="weatherTempType" FontSize="17"/>
+                        <TextBlock Name="weatherTempNum" FontSize="13"/>
+                    </StackPanel>
+                </Grid>
+                <TextBox x:Name="searchMessage" Width="100" Height="30"  Grid.Column="1" Margin="0, 0, 30, 0" HorizontalAlignment="Right"/>
+                <Button x:Name="searchButton" Width="80" Height="30" Content="search" Grid.Column="2" Click="clickSearchButton" HorizontalAlignment="Right"/>
             </Grid>
             <ListView x:Name="list" ItemsSource="{x:Bind ViewModel.allItems}" SelectionChanged="ItemSelect" IsItemClickEnabled="True" Grid.Row="1">
                 <ListView.ItemTemplate>
